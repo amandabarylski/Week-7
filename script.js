@@ -58,13 +58,13 @@ ages.push(31)
 console.log("Answer 1b: " + (ages[ages.length - 1] - ages[0]))
 //When researching how to find the average of an array, I saw versions that used functions and versions that didn't.
 //I decided to use a function to contain both my for loop and my sum variable and return the average, since it kept everything contained in a more managable way.
-//I double checked by doing the arithmetic myself with a calculator and found my code worked.
-function average ([]) {
+//I double checked by doing the arithmetic myself with a calculator and found my function gave the correct answer.
+function average (array) {
     let sum = 0
-    for (let i = 0; i < ages.length; i++) {
-    sum += ages[i]
+    for (let i = 0; i < array.length; i++) {
+    sum += array[i]
     }
-    return sum / ages.length
+    return sum / array.length
 }
 console.log("Answer 1c: " + average(ages))
 
@@ -80,12 +80,12 @@ let names = ['Sam', 'Tommy', 'Tim', 'Sally', 'Buck', 'Bob']
 console.log("Answer 2: " + names)
 //Once again I used a for loop within a function to calculate the average, but this time I had to use .length after
 //specifying the string in order to convert it into a number.
-function avgLength ([]) {
+function avgLength (array) {
     let sum = 0
-    for (let i = 0; i < names.length; i++) {
-        sum += names[i].length
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i].length
     }
-    return sum / names.length
+    return sum / array.length
 }
 console.log("Answer 2a: " + avgLength(names))
 //When looking up how to concatenate all strings in an array together, what I first found was the use of the join method.
@@ -93,14 +93,11 @@ console.log("Answer 2a: " + avgLength(names))
 //I had to start my string with the first element in the array and my loop with index number 1. When I left the initial
 //value of the namesList variable undefined, it printed "undefined" as the first item in the concatenated list.
 //The same issue ocurred when I instead put null as the value.
-function combine ([]) {
-    let namesList = names[0]
-    for (let i = 1; i < names.length; i++) {
-        namesList = namesList + " " + names[i]
-    }
-    return namesList
+let namesList = names[0]
+for (let i = 1; i < names.length; i++) {
+    namesList = namesList + " " + names[i]
 }
-console.log("Answer 2b: " + combine(names))
+console.log("Answer 2b: " + namesList)
 //The join method was far simpler and easier but didn't follow the parameters of the question.
 //However, this would be what I would use in a real coding situation.
 console.log("Bonus: " + names.join(' '))
@@ -145,10 +142,10 @@ console.log("-------------")
 console.log('6. Write a loop to iterate over the nameLengths array and calculate the sum of all the elements in the array.')
 //I used a function to contain the for loop again, as it would be easier to refer back to and print with the console.
 //The for loop itself was very simple, only needing to add each element to the sum variable as they were already numbers.
-function sumAll ([]) {
+function sumAll (array) {
     let sum = 0
-    for (let i = 0; i < nameLengths.length; i++) {
-    sum += nameLengths[i]
+    for (let i = 0; i < array.length; i++) {
+    sum += array[i]
     }
     return sum
 }
@@ -182,3 +179,108 @@ console.log('8. Write a function that takes two parameters, firstName and lastNa
 //Instead of concatenating with +, I opted to use a template literal in both the function and the console.log printing it.
 const fullName = (firstName, lastName) => `${firstName} ${lastName}`
 console.log(`Answer 8: ${fullName('John', 'Smith')}`)
+
+console.log("-------------")
+
+
+console.log("9. Write a function that takes an array of numbers and returns true if the sum of all the numbers in the array is greater than 100.")
+//First I created two arrays of numbers to use to test the function with.
+let numArray1 = [34, 12, 8, 29, 17, 3, 22]
+let numArray2 = [5, 21, 14, 7, 2, 30]
+
+//Utilizing the same loop I used in previous questions, I had the function determine the sum of all numbers in the array.
+//Then, I used an if statement to return true if the sum is greater than 100.
+function isGreaterThan100 (array) {
+    let sum = 0
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i]
+    }
+    if (sum > 100) {
+        return true
+    }
+}
+//The first array results in true, while the second is undefined as I did not use an else statement with a return keyword.
+console.log("Question 9, numArray1: " + isGreaterThan100(numArray1))
+console.log("Question 9, numArray2: " + isGreaterThan100(numArray2))
+
+console.log("-------------")
+
+
+console.log("10. Write a function that takes an array of numbers and returns the average of all the elements in the array.")
+//I already found a function containing both variables and for loop to be more efficient than listing them all seperately.
+//I copied and pasted my previously made function and changed the name to prevent errors, then tested it with the two arrays from above.
+//The test revealed that both resulted in long decimals, so I chose to edit my function to allow the result to be rounded.
+//Using the MDN documentation, I found that I could used toFixed to round.
+//However, with further research I found that parseFloat was also needed if I wanted the result to be a number and not a string.
+function numAvg (array) {
+    let sum = 0
+    for (let i = 0; i < array.length; i++) {
+    sum += array[i]
+    }
+    let avg = sum / array.length
+    return parseFloat(avg.toFixed(2))
+}
+console.log("Question 10, numArray1: " + numAvg(numArray1))
+console.log("Question 10, numArray2: " + numAvg(numArray2))
+
+console.log("-------------")
+
+
+console.log("11. Write a function that takes two arrays of numbers and returns true if the average of the elements in the first array is greater than the average of the elements in the second array.")
+//For this function, I copied the average loop and its respective variables twice and changed the names to result in two averages that could be compared.
+//I then used the two number arrays that I created for question 9, and printed it through the console.
+//The result was true as the first average is greater; I then switched them and ran it again with an undefined result due to the lack of an else statement.
+const greaterAvg = (array1, array2) => {
+    let sum1 = 0
+    for (let i = 0; i < array1.length; i++) {
+    sum1 += array1[i]
+    }
+    let avg1 = sum1 / array1.length
+    let sum2 = 0
+    for (let i = 0; i < array2.length; i++) {
+    sum2 += array2[i]
+    }
+    let avg2 = sum2 / array2.length
+    if (avg1 > avg2) {
+        return true
+    }
+}
+console.log("Question 11, numArray1 first: " + greaterAvg(numArray1, numArray2))
+console.log("Question 11, numArray2 first: " + greaterAvg(numArray2, numArray1))
+
+console.log("-------------")
+
+
+console.log("12. Write a function called willBuyDrink that takes a boolean isHotOutside, and a number moneyInPocket, and returns true if it is hot outside and if moneyInPocket is greater than 10.50.")
+//For this function I created a simple if statement that requires both arguments to be true to return true.
+//This time I included an else statement to return false if one or both of the arguments returns false.
+const willBuyDrink = (isHotOutside, moneyInPocket) => {
+    if (isHotOutside === true && moneyInPocket > 10.50) {
+        return true
+    } else {
+        return false
+    }
+}
+//I printed it to the console a few times to be certain that it worked properly with different inputs.
+console.log(`Answer 12, inputs true and 11.20: ${willBuyDrink(true, 11.20)}`)
+console.log(`Answer 12, inputs false and 15.50: ${willBuyDrink(false, 15.50)}`)
+console.log(`Answer 12, inputs true and 5.30: ${willBuyDrink(true, 5.30)}`)
+
+console.log("-------------")
+
+
+console.log("13. Create a function of your own that solves a problem. In comments, write what the function does and why you created it.")
+/*I created a function that takes the number of leveling materials and returns a whole number to represent how many of the
+highest tier can currently be crafted with what is in the inventory. The first stage converts lower tier to medium tier,
+rounding down to the nearest whole number to represent how many could actually be crafted. Then I take the result of that
+and add it to the second argument, how many medium tier of these items are currently in the inventory. I divide by three
+again, still rounding down, and add that to the final argument for the number of high tier materials that can be crafted.*/
+/*I made this function because this is something I do regularly in a game I play. As I am already familiar with the arithmetic,
+it was easy to check whether the solution was correct. Doing this regularly has also made me tired of doing it so often.
+This function will help save time in the future should I remember to use it.*/
+function materialCalc (low, medium, high) {
+    let mediumTier = Math.floor(low / 3) + medium
+    let highTier = Math.floor(mediumTier / 3) + high
+    return highTier
+}
+console.log("Question 13 example result: " + materialCalc(26, 18, 5))
